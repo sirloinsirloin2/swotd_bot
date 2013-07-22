@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: showposts id"
+  echo "  Shows the posts corresponding to the given woman or theme id."
+  exit 1
+fi
+
+
+sqlite3 swotd.db "select postid, name, date, title, link, distinguished from posts join  women on posts.womanid=women.id where womanid=$1 order by date ASC, distinguished DESC LIMIT 25";

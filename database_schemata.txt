@@ -1,0 +1,18 @@
+-- Below are the schemata for the tables.
+-- Run 'sqlite3 dbname.db < database_schemata.txt'
+
+CREATE TABLE women (
+	`id` INTEGER PRIMARY KEY ASC AUTOINCREMENT, 
+	`name` TEXT UNIQUE, 
+	`date` TEXT DEFAULT NULL, 
+	`theme` INTEGER DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE posts (
+	`postid` INTEGER PRIMARY KEY ASC AUTOINCREMENT, 
+	`womanid` INTEGER REFERENCES WOMEN (ID), 
+	`title` TEXT NOT NULL, 
+	`link` TEXT NOT NULL, 
+	`posted` INTEGER NOT NULL DEFAULT 0, 
+	`distinguished` INTEGER DEFAULT 0
+);

@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: makepost womanid title url"
+  echo '  Adds a post to the database.'
+  echo 
+  echo 'Notes:'
+  echo '+ womanid is the numerical id.  Use the "search" command to find it.' 
+  echo '+ Note that you will need to quote the title if it consists of more than'
+  echo '  one word (which it usually will).'
+  exit 1
+fi
+
+sqlite3 swotd.db "INSERT INTO posts (womanid, title, link) values ('$1', '$2', '$3')"

@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: schedule id"
+  echo "  Schedules the woman or theme with the given id for the date after the "
+  echo "  last scheduled date."
+  exit 1
+fi
+
+
+for i in $*; do
+latest=$(sqlite3 swotd.db "SELECT MAX(date) FROM women WHERE date IS NOT NULL")
+name=$(sqlite3 swotd.db "SELECT name FROM women WHERE id=$i")
+sqlite3 swotd.db "UPDATE women SET date = date('$latest', '+1 day') WHERE id = '$i' LIMIT 1" 
+echo "Scheduled $name for $latest"
+done

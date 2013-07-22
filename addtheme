@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: addtheme name"
+  echo "  Adds the given theme to the database.  No quoting is needed, but only"
+  echo "  inserts one theme at a time."
+  exit 1
+fi
+
+
+sqlite3 swotd.db "INSERT INTO women (name, theme) VALUES ('$*', 1)"

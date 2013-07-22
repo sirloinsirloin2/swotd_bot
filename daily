@@ -1,0 +1,13 @@
+#!/usr/bin/python
+
+# Intended to be run at the beginning of each day as a cron job.
+#  * Add the new flair for today
+#  * Update the css (so today's flair is distinguished)
+#  * Update the sidebar (to reflect upcoming schedule and today's woman)
+
+import Updater
+
+x = Updater.Updater()
+x.add_flair_template()
+x.update_css()
+x.update_sidebar()

@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: search name"
+  echo "  Searches for the given woman or theme.  Useful for finding the id."
+  exit 1
+fi
+
+
+
+sqlite3 swotd.db "SELECT * FROM women WHERE name like '%$*%' ORDER BY date"

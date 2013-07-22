@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $# -gt 0 ]
+then
+  cat version
+  echo
+  echo "Usage: random"
+  echo "  Prints ten random women who have not been scheduled." 
+  exit 1
+fi
+
+
+sqlite3 swotd.db 'SELECT * FROM women WHERE DATE IS NULL ORDER BY random() LIMIT 10';

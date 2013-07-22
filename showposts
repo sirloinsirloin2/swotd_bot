@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sqlite3 swotd.db "select postid, name, date, title, link, distinguished from posts join  women on posts.womanid=women.id where date >= date('now') order by date ASC, distinguished DESC LIMIT 25";

@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: schedule-date date id"
+  echo "  Schedules the woman or theme with the given id for the given date."
+  echo "  The date should be specified in YYYY-MM-DD format."
+  exit 1
+fi
+
+latest=$(sqlite3 swotd.db "SELECT MAX(date) FROM women WHERE date IS NOT NULL")
+
+sqlite3 swotd.db "UPDATE women SET date = date('$1') WHERE id = '$2' LIMIT 1" 
+
+./upcoming

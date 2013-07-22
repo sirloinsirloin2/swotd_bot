@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: addgirl name"
+  echo "  Adds the given woman to the database.  No quoting is needed, but only"
+  echo "  inserts one woman at a time."
+  exit 1
+fi
+
+sqlite3 swotd.db "INSERT INTO women (name) VALUES ('$*')"
+sqlite3 swotd.db "SELECT * FROM women WHERE name='$*'"

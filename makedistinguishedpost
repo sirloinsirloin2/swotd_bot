@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+  cat version
+  echo
+  echo "Usage: makedistinguishedpost womanid title url"
+  echo '  Adds a distinguished post to the database.  Like addpost, except that'
+  echo '  these posts are "mod-distinguished"; useful for the daily introduction'
+  echo '  posts.  Also, distinguished posts are made before normal posts.'
+  echo 
+  echo 'Notes:'
+  echo '+ womanid is the numerical id.  Use the "search" command to find it.' 
+  echo '+ Note that you will need to quote the title if it consists of more than'
+  echo '  one word (which it usually will).'
+  exit 1
+fi
+
+sqlite3 swotd.db "INSERT INTO posts (womanid, title, link, distinguished) values ('$1', '$2', '$3', 1)"
