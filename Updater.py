@@ -13,13 +13,13 @@ class Updater:
     conn = None  # Database connection
 
     def reddit_connect(self):
-		"""Initialize the reddit connection and subreddit object"""
+        """Initialize the reddit connection and subreddit object"""
         self.r = praw.Reddit(user_agent=self.user_agent)
         self.r.login(self.username, self.password)
         self.s = self.r.get_subreddit(subreddit)
 
     def current_submissions(self):
-		"""Lists five most recent posts to subreddit"""
+        """Lists five most recent posts to subreddit"""
         if self.r is None:
             self.reddit_connect()
         submissions = self.s.get_new(limit=5)
@@ -30,12 +30,12 @@ class Updater:
             print "    flair: ", i.link_flair_text
 
     def db_connect(self):
-		"""Connects to the database"""
+        """Connects to the database"""
         self.conn = sqlite3.connect(self.dbfile)
         self.conn.row_factory = sqlite3.Row
 
     def current_woman(self):
-		"""Returns the record of the current days' woman"""
+        """Returns the record of the current days' woman"""
         if(self.conn is None):
             self.db_connect()
         c = self.conn.cursor()
@@ -47,12 +47,12 @@ class Updater:
             return None 
 
     def add_flair_template(self):
-		"""Adds today's link flair to the subreddit"""
+        """Adds today's link flair to the subreddit"""
         x = self.flair_text()
         self.s.add_flair_template(x['text'], x['date'], is_link=True)
 
     def flair_text(self):
-		"""Calculates today's flair text"""
+        """Calculates today's flair text"""
         if(self.r is None):
             self.reddit_connect()
         w = self.current_woman()
@@ -62,24 +62,17 @@ class Updater:
 
 
     def update_css(self):
-		"""Update the stylesheet to distinguish today's flair"""
+        """Update the stylesheet to distinguish today's flair"""
         if(self.r is None):
             self.reddit_connect()
+        text = open('sidebar.txt', 'r').read()
         date = datetime.datetime.now().date().isoformat()
-        css='''
-/* Update to reflect current date (to distinguish "active" topic) */
-.linkflair-%s .linkflairlabel {
-  font-size:small;
-  max-width:15em;
-  background-color: #58FA82;
-  color: #0B3B17;
-  border-color: #0B3B17;
-}''' % date
+        css = text % date
         self.s.set_stylesheet(css)
         
 
     def update_sidebar(self):
-		"""Sets the sidebar for today's content"""
+        """Sets the sidebar for today's content"""
         if(self.conn is None):
             self.db_connect()
         c = self.conn.cursor()
@@ -111,7 +104,7 @@ class Updater:
         print self.s.update_settings(**settings)
 
     def makepost(self):
-		"""Makes the next post in the 'post' database"""
+        """Makes the next post in the 'post' database"""
         curr = self.current_woman()['id']
         c = self.conn.cursor()
         c.execute("SELECT * FROM posts WHERE womanid=%d AND posted=0 ORDER BY distinguished DESC" % curr)
