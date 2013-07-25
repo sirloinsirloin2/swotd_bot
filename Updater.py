@@ -62,7 +62,7 @@ class Updater:
         """Update the stylesheet to distinguish today's flair"""
         if(self.r is None):
             self.reddit_connect()
-        text = open('sidebar.txt', 'r').read()
+        text = open('stylesheet.css', 'r').read()
         date = datetime.datetime.now().date().isoformat()
         css = text % date
         self.s.set_stylesheet(css)
