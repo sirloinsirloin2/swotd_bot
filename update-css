@@ -1,0 +1,5 @@
+#!/usr/bin/python
+import Updater;
+
+x = Updater.Updater()
+x.update_css()
