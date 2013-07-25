@@ -12,7 +12,7 @@ class Updater:
     def reddit_connect(self):
         """Initialize the reddit connection and subreddit object"""
         self.r = praw.Reddit(user_agent=self.user_agent)
-        self.r.login(self.username, self.password)
+        self.r.login(username, password)
         self.s = self.r.get_subreddit(subreddit)
 
     def current_submissions(self):
