@@ -1,13 +1,10 @@
 import praw
 import sqlite3
 import datetime
+from conf import username, password, subreddit, dbfile
 
 class Updater:
     user_agent = "SWOTD Updater Bot (/u/sirloinsirloin2)"
-    username = "swotd_bot"
-    password = "fakepass"
-    subreddit = "SexyWomanOfTheDay"
-    dbfile = "swotd.db"
     r = None  # Connection to reddit
     s = None  # SWOTD subreddit object
     conn = None  # Database connection
